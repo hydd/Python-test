@@ -9,7 +9,8 @@ from channel import channel  # 这是我们第一个程序爬取的链接信息
 
 def ceshi_person(person):
     try:
-        person = int(person.get_text().split()[0][1:len(person.get_text().split()[0]) - 4])
+        person = int(person.get_text().split()[0][
+            1:len(person.get_text().split()[0]) - 4])
     except ValueError:
         person = int(10)
     return person
@@ -47,8 +48,11 @@ def mains(url):
     soup = BeautifulSoup(wb_data.text.encode("utf-8"), "lxml")
     tag = url.split("?")[0].split("/")[-1]
     detils = soup.select("#subject_list > ul > li > div.info > div.pub")
-    scors = soup.select("#subject_list > ul > li > div.info > div.star.clearfix > span.rating_nums")
-    persons = soup.select("#subject_list > ul > li > div.info > div.star.clearfix > span.pl")
+    scors = soup.select(
+        "#subject_list > ul > li > div.info > div.star.clearfix > span.rating_nums"
+    )
+    persons = soup.select(
+        "#subject_list > ul > li > div.info > div.star.clearfix > span.pl")
     titles = soup.select("#subject_list > ul > li > div.info > h2 > a")
     for detil, scor, person, title in zip(detils, scors, persons, titles):
         l = []  # 建一个列表，用于存放数据
@@ -66,7 +70,8 @@ def mains(url):
                 author = detil.get_text().split("/", 3)[0].split()[0]
                 yizhe = ""
                 publish = detil.get_text().split("/", 3)[1]
-                time = detil.get_text().split("/", 3)[2].split()[0].split("-")[0]
+                time = detil.get_text().split("/",
+                                              3)[2].split()[0].split("-")[0]
                 price = ceshi_pricetwo(detil)
                 scoe = scor.get_text() if True else ""
                 person = ceshi_person(person)
@@ -84,14 +89,10 @@ def mains(url):
 
 # 主函数到此结束
 
-
 # 将Python连接到MySQL中的python数据库中
 # 连接数据库
 connect = mysql.connector.connect(
-    user='root',
-    password='123456',
-    host='127.0.0.1',
-    database='book')
+    user='root', password='123456', host='127.0.0.1', database='book')
 cur = connect.cursor()
 
 cur.execute('DROP TABLE IF EXISTS allbooks')  # 如果数据库中有allbooks的数据库则删除
@@ -110,11 +111,14 @@ cur.execute(sql)  # 执行sql语句，新建一个allbooks的数据库
 
 start = time.clock()  # 设置一个时钟，这样我们就能知道我们爬取了多长时间了
 for urls in channel.split():
-    urlss = [urls + "?start={}&type=T".format(str(i)) for i in range(0, 980, 20)]  # 从channel中提取url信息，并组装成每一页的链接
+    urlss = [
+        urls + "?start={}&type=T".format(str(i)) for i in range(0, 980, 20)
+    ]  # 从channel中提取url信息，并组装成每一页的链接
     for url in urlss:
         mains(url)  # 执行主函数，开始爬取
         print(url)  # 输出要爬取的链接，这样我们就能知道爬到哪了，发生错误也好处理
-        time.sleep(int(format(random.randint(0, 9))))  # 设置一个随机数时间，每爬一个网页可以随机的停一段时间，防止IP被封
+        time.sleep(int(format(random.randint(
+            0, 9))))  # 设置一个随机数时间，每爬一个网页可以随机的停一段时间，防止IP被封
 end = time.clock()
 print('Time Usage:', end - start)  # 爬取结束，输出爬取时间
 count = cur.execute('select * from allbooks')

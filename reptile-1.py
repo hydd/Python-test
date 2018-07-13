@@ -74,7 +74,7 @@ class downloader(object):
     """
 
     def writer(self, name, path, text):
-        #write_flag = True
+        # write_flag = True
         with open(path, 'a', encoding='utf-8') as f:
             f.write(name + '\n')
             f.writelines(text)
