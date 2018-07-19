@@ -6,8 +6,8 @@ import mysql.connector
 from modle import Cardid
 from modle import create_session
 from modle import getEngine
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy import create_engine
+# from sqlalchemy.orm import sessionmaker
+# from sqlalchemy import create_engine
 
 # from sqlalchemy.ext.declarative import declarative_base
 
