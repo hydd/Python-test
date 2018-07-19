@@ -43,7 +43,7 @@ def insert_db(code_list):  # 通过sql语句进行数据库操作略显复杂，
     sql = "SELECT * FROM code_id"
     cursor.execute(sql)
     for row in cursor.fetchall():
-        print("id:%s\name:%s" % row)
+        print("id:%s\nname:%s" % row)
     print('共查找出', cursor.rowcount, '条数据')
 
     # 关闭连接
@@ -57,4 +57,5 @@ def read_insert():
 
 
 if __name__ == '__main__':
-    read_insert()
+    # read_insert()
+    read_file()
