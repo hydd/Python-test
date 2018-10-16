@@ -41,11 +41,16 @@ def getImgType(img):
     return
 
 
+def getDirFile(imgpath, img):
+    return imgpath + str(img[0]) + '.jpg'
+
+
 if __name__ == '__main__':
     # mov = '/Users/yycx/VScode/python/xm/overwatch.avi'
-    mov = '/Users/yycx/VScode/python/xm/mov.avi'
+    mov = '/Users/yycx/VScode/python/Python-test/xm/mov.avi'
     # imgpath = '/Users/yycx/VScode/python/xm/overwatch/'
-    imgpath = '/Users/yycx/VScode/python/xm/img/'
+    imgpath = '/Users/yycx/VScode/python/Python-test/xm/img/'
     # dirfile = '/Users/yycx/VScode/python/xm/overwatch/1.jpg'
-    dirfile = '/Users/yycx/VScode/python/xm/img/1539331212587747.jpg'
+    # print(getDirFile(imgpath, getImg(imgpath)))
+    dirfile = getDirFile(imgpath, getImg(imgpath))
     wirteToMovie(getImg(imgpath), mov, imgpath, dirfile)
